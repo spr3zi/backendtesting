@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, Path
 
 router = APIRouter()
 
-@router.get("/", response_model=QuoteDB)
+@router.get("/")
 async def get_random_quote():
     quote = await crud.get_random_quote()
     if not quote:
