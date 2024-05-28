@@ -10,3 +10,17 @@ async def get_random_quote():
     quote = await database.fetch_one(query)
     return quote
 
+async def get_quote(quote_id):
+    query = quotes.select().where(quotes.c.id == quote_id)
+    quote = await database.fetch_one(query)
+    return quote
+
+async def post(payload: QuoteSchema):
+    query  = quotes.insert().values(quotesource=payload.quotesource,
+                                    quotetext=payload.quotetext)
+    return await database.execute(query)
+    
+
+async def delete(quote_id):
+    query = quotes.delete().where(quotes.c.id == quote_id)
+    return await database.execute(query)
